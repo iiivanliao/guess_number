@@ -1,0 +1,21 @@
+'''
+设置一个范围1-100的随机整数变量，通过while循环，配合input语句，判断输入的数字是否等于随机数。
+要求：无限次机会，知道猜中为止
+每一次猜不中，会提示大了还是小了。
+才玩数字后，提示猜了几次
+'''
+
+
+import random
+target_num = random.randint(1, 100)
+guess_num = 1
+while True:
+    guess =  int(input("Please guess a number from 1 to 100:"))
+    if target_num == guess:
+        print("Right, you've guessed %d times." % guess_num)
+        break
+    elif target_num < guess:
+        print("It's not that much.")
+    else:
+        print("It's larger.")
+    guess_num += 1
