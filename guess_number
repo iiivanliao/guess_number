@@ -1,0 +1,22 @@
+'''
+给出1-10的任意数字，让用户猜测三次，
+每次猜测完给用户提示是大了还是小了，
+如果3次或以内猜对，提示用户猜对了，结束程序。
+
+'''
+import random
+
+target_num = random.randint(1, 10)
+i = 0
+while i < 3:
+    a = int(input("请猜测："))
+    if target_num == a:
+        print("Right, the answer is %s" % a)
+        break
+    elif target_num > a:
+        print("小了")
+    else:
+        print("大了")
+    i += 1
+    if i == 3:
+        print("Game is Over, no chance, the answer is %s" % a)
