@@ -1,0 +1,62 @@
+'''
+黑马ATM案例
+'''
+
+money = 10000
+name = input("Please input your name:")
+
+
+def main():
+    def main_screen():
+        print(f'''
+        {name}, 您好，欢迎来到黑马银行ATM。请选择操作：
+        查询余额\t[输入1]
+        存款\t\t\t[输入2]
+        取款\t\t\t[输入3]
+        退出\t\t\t[输入4]
+        请输入您的选择
+        ''')
+        return int(input("请输入您的选择： "))
+
+    def query(show_header = 1):
+        if show_header:
+            print("------------------查询余额--------------------------")
+        print(f"{name}，您好，您的余额剩余：{money}")
+
+    def deposit_money(a_num):
+        global money
+        money += a_num
+        print(f'''
+        ------------------------------存款-----------------------------
+        {name}，您好，您存款{a_num}元成功。
+        ''')
+
+    def withdraw_money(b_num):
+        global money
+        money -= b_num
+        print(f'''
+        ------------------------------取款-----------------------------
+        {name}，您好，您取款{b_num}元成功。
+        ''')
+
+    input_num = main_screen()
+    if input_num == 1:
+        query()
+    elif input_num == 2:
+        num = int(input("How much do you wanna deposit?"))
+        deposit_money(num)
+        query(0)
+    elif input_num == 3:
+        num = int(input("How much do you wanna get"))
+        withdraw_money(num)
+        query(0)
+    elif input_num == 4:
+        return 1
+    else:
+        return 1
+
+
+while True:
+    result = main()
+    if  result:
+        break
