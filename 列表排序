@@ -1,0 +1,25 @@
+def ground_line(a_list, order):
+    empty_list = []
+    for i in a_list:
+        if not empty_list:
+            empty_list.append(i)
+            continue
+        if len(empty_list) == 1:
+            if i < empty_list[0]:
+                empty_list.insert(0, i)
+            elif i > empty_list[0]:
+                empty_list.append(i)
+        else:
+            j = 0
+            while j < len(empty_list):
+                if i < empty_list[j]:
+                    empty_list.insert(j, i)
+                    break
+                j += 1
+            else:
+                empty_list.append(i)
+    return empty_list
+
+
+num_list = [20, 50, 10, 40, 60]
+print(f'The ground line of {num_list} is:', ground_line(num_list))
