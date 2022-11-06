@@ -1,0 +1,134 @@
+class Namecard:
+    """
+    该类用于创建名片对象，其方法包含修改名片，
+    类方法包括查询所有名片、展示所有名片等。
+    """
+    # 类属性，用于记录该类创建了所有对象，初始值为空列表。
+    namecards: list = []
+
+    def __init__(self, name, phone, qq, email): # 名片构造函数。
+        self.name = name
+        self.phone = phone
+        self.qq = qq
+        self.email = email
+        # 利用类属性，每次创建一个名片，就以一个字典的形式添加到类属性namecards的列表中。
+        Namecard. namecards.append(
+            {"姓名": self.name,
+             "电话": self.phone,
+             "QQ": self.qq,
+             "邮箱": self.email},
+        )
+        # 每次创建好一个名片后，提示已成功的以下信息，并显示创建名片的对应姓名。
+        print("成功添加了%s的名片" % self.name)
+
+    @classmethod
+    def show_namecards(cls): #使用类方法，以列表的形式展示所有已有名片信息。
+        print("功能：显示全部")
+        if not Namecard.namecards: # 如果没有任何名片，提示“没有名片记录”的以下信息。
+            print("提示： 没有任何名片记录")
+        else: # 如果有名片记录，就以列表形式展示名片信息。
+            for name in ["姓名","电话", "QQ", "邮箱"]: # 显示名片列表的表头信息
+                print("%-20s\t\t" % name, end="")
+            print("")
+            for i in cls.namecards:
+                print("%-20s\t\t%-20s\t\t%-20s\t\t%-20s" % (i["姓名"],
+                                                                                                          i["电话"],
+                                                                                                          i["QQ"],
+                                                                                                          i["邮箱"]))
+
+    @classmethod
+    def search_namecards(cls, name):
+        for i in cls.namecards:
+            count = 0
+            if name == i["姓名"]:
+                count += 1
+                for name in ["姓名", "电话", "QQ", "邮箱"]:
+                    print("%-20s\t\t" % name, end="")
+                print("")
+                print("%-20s\t\t%-20s\t\t%-20s\t\t%-20s" % (i["姓名"],
+                                                            i["电话"],
+                                                            i["QQ"],
+                                                            i["邮箱"]))
+                next_input = int(input("请输入对名片的操作：1：修改/ 2: 删除/ 0: 返回上级菜单。\n您的选择是："))
+                if next_input == 0:
+                    cls.show_namecards()
+                elif next_input == 2:
+                    cls.del_namecard(name)
+                elif next_input == 1:
+                    def some_input(cn_name, en_name):
+                        en_name = input("请输入新%s【回车不修改】：" % cn_name)
+                        if not en_name:
+                            print("", end="")
+                        else:
+                            for i in cls.namecards:
+                                if name in i:
+                                    i["%s" % cn_name] = en_name
+                    some_input("姓名", "cn_name")
+                    some_input("电话", "phone")
+                    some_input("QQ", "qq")
+                    some_input("email", "en_email")
+                    print("修改成功。")
+        else:
+            if count == 0:
+                print("没有该名片。")
+
+    @classmethod
+    def del_namecard(cls, name):
+        for i in cls.namecards:
+            if name in i:
+                cls.namecards.remove(i)
+                print("成功删除该名片。")
+
+    def change_namecard(self):
+        name_input = input("请输入新姓名【回车不修改】：")
+        if not name_input:
+            print("")
+        else:
+            self.name = name_input
+        phone_input = input("请输入新电话【回车不修改】：")
+        if not phone_input:
+            print("")
+        else:
+            self.phone = phone_input
+        qq_input = input("请输入新QQ号【回车不修改】：")
+        if not qq_input:
+            print("")
+        else:
+            self.qq = qq_input
+        email_input = input("请输入新邮箱【回车不修改】：")
+        if not email_input:
+            print("")
+        else:
+            self.email = email_input
+        print("修改成功。")
+
+    @staticmethod
+    def show_maininfo():
+        print("*" * 20)
+        print("欢迎使用【名片管理系统】v1.0")
+        print("1. 新建名片")
+        print("2. 显示全部")
+        print("3. 查询名片\n")
+        print("0. 退出系统")
+        print("*" * 20)
+
+
+if __name__ == "__main__":
+    while True:
+        Namecard.show_maininfo()
+        usr_input = int(input("请选择操作功能："))
+        if usr_input == 1:
+            print("-" * 20)
+            print("功能：新建名片")
+            usr_name = input("请输入姓名：")
+            usr_phone = input("请输入电话：")
+            usr_qq = input("请输入QQ号码：")
+            usr_email = input("请输入邮箱：")
+            usr_name = Namecard(usr_name, usr_phone, usr_qq,usr_email)
+        elif usr_input == 2:
+            Namecard.show_namecards()
+        elif usr_input == 3:
+            usr_search = input("请输入要搜索的姓名：")
+            Namecard.search_namecards(usr_search)
+
+
