@@ -1,0 +1,49 @@
+class Gun:
+    def __init__(self, model_num, bullet_volume):
+        self.model_num = model_num
+        self.bullet_volume = bullet_volume
+        self.bullet_left = bullet_volume
+
+    def fire(self, num):
+        if num > self.bullet_left:
+            print("抱歉，子弹不够，此次不能射击，只剩下%d颗子弹" % self.bullet_left)
+            return
+        self.bullet_left -= num
+        print("开火，还剩余%d子弹" % self.bullet_left)
+
+    def add_bullet(self, num):
+        if self.bullet_left + num > self.bullet_volume:
+            print("抱歉，无法装填这么多弹药，弹夹容量是：%d" % self.bullet_volume)
+            return
+        self.bullet_left += num
+        print("已装填%d弹药，现在共有%d弹药" % (num, self.bullet_left))
+
+
+class Solider:
+    def __init__(self, name):
+        self.name = name
+        self.gun = None
+
+    def fire(self, num):
+        if num > self.gun.bullet_left:
+            print("抱歉，子弹不够，此次不能射击，只剩下%d颗子弹" % self.gun.bullet_left)
+            return
+        print("%s开枪了，射击了%d颗子弹" % (self.name, num))
+        self.gun.fire(num)
+
+    def add_bullet(self, num):
+        if self.gun.bullet_left + num > self.gun.bullet_volume:
+            print("抱歉，无法装填这么多弹药，弹夹容量是：%d" % self.gun.bullet_volume)
+            return
+        print("%s开始装填%d弹药" % (self.name, num))
+        self.gun.add_bullet(num)
+
+
+ak47 = Gun("AK_47", 100)
+xusanduo = Solider("Xu Sanduo")
+xusanduo.gun = ak47
+xusanduo.fire(20)
+xusanduo.fire(40)
+xusanduo.fire(50)
+xusanduo.add_bullet(100)
+xusanduo.fire(60)
