@@ -15,18 +15,15 @@ class House:
         self.item_list = []
 
     def __str__(self):
-        print("该房子是%s类型的，它的总面积是%.2f平米，空余面积是%.2f，现已有家具有%s" % (
-            self.house_type,
-            self.area,
-            self.free_area,
-            str(self.item_list)
-        ))
+        return ("该房子是%s类型的，它的总面积是%.2f平米，空余面积是%.2f，现已有家具有%s" % (
+            self.house_type, self.area,
+            self.free_area, self.item_list))
 
     def add_item(self, item):
         if item.area > self.free_area:
             print("抱歉，该家具占地面积太大，已超过该房屋的剩余面积%.2f" % self.free_area)
             return
-        self.item_list.append(item)
+        self.item_list.append(item.name)
         self.free_area -= item.area
         print("已成功将%s放置进该房屋，房屋剩余面积有%.2f" % (item.name, self.free_area))
 
@@ -40,3 +37,4 @@ ivanhouse.add_item(desk)
 ivanhouse.add_item(tv)
 ivanhouse.add_item(sofa)
 ivanhouse.add_item(bed)
+print(ivanhouse)
